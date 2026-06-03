@@ -18,8 +18,7 @@ export function validate(schema: ZodSchema, source: 'body' | 'query') {
 }
 
 export function requireUserId(req: Request, res: Response, next: NextFunction): void {
-  const userId = req.headers['x-user-id'];
-  if (!userId || typeof userId !== 'string') {
+  if (!req.header('x-user-id')) {
     res.status(401).json({ error: 'X-User-Id header is required', code: 'UNAUTHORIZED' });
     return;
   }
