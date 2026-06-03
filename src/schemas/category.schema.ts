@@ -1,4 +1,7 @@
+import { extendZodWithOpenApi } from '@asteasolutions/zod-to-openapi';
 import { z } from 'zod';
+
+extendZodWithOpenApi(z);
 
 export const CategoryResponseSchema = z.object({
   id: z.string().openapi({ example: 'wearables.clothes.dresses' }),

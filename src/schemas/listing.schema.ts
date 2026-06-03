@@ -1,5 +1,8 @@
+import { extendZodWithOpenApi } from '@asteasolutions/zod-to-openapi';
 import { z } from 'zod';
 import { PaginationSchema } from './pagination.schema';
+
+extendZodWithOpenApi(z);
 
 export const ListingQuerySchema = PaginationSchema.extend({
   search: z.string().optional().openapi({ description: 'Search in title and caption', example: 'dress' }),
