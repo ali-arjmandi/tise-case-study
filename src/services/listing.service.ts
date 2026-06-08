@@ -11,47 +11,9 @@ export class ListingService {
   ) {}
 
   getAll(query: ListingQuery, userId?: string): PaginatedResponse<ListingResponse> {
-    const { offset, limit, sortBy, sortOrder, search, category, size, sold } = query;
+    const { offset, limit } = query;
 
-    let results = this.listings.findAll();
-
-    if (search) {
-      const term = search.toLowerCase();
-      results = results.filter(
-        (l) => l.title.toLowerCase().includes(term) || l.caption.toLowerCase().includes(term),
-      );
-    }
-
-    if (category) {
-      results = results.filter((l) => l.category === category);
-    }
-
-    if (size) {
-      results = results.filter((l) => l.size.toLowerCase() === size.toLowerCase());
-    }
-
-    if (sold !== undefined) {
-      const soldBool = sold === 'true';
-      results = results.filter((l) => l.sold === soldBool);
-    }
-
-    results.sort((a, b) => {
-      let aVal: number | string;
-      let bVal: number | string;
-
-      if (sortBy === 'likeCount') {
-        aVal = this.listings.getLikeCount(a.id);
-        bVal = this.listings.getLikeCount(b.id);
-      } else {
-        aVal = a[sortBy];
-        bVal = b[sortBy];
-      }
-
-      if (aVal < bVal) return sortOrder === 'asc' ? -1 : 1;
-      if (aVal > bVal) return sortOrder === 'asc' ? 1 : -1;
-      return 0;
-    });
-
+    const results = this.listings.findFiltered(query);
     const total = results.length;
     const page = results.slice(offset, offset + limit);
 

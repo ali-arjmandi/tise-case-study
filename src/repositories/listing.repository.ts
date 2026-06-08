@@ -1,8 +1,10 @@
 import { listingsStore, likesStore } from '../db/store';
 import { Listing, ListingResponse } from '../models/listing';
+import { ListingQuery } from '../schemas/listing.schema';
 
 export interface IListingRepository {
   findAll(): Listing[];
+  findFiltered(query: ListingQuery): Listing[];
   findById(id: string): Listing | undefined;
   create(listing: Listing): Listing;
   like(listingId: string, userId: string): void;
@@ -14,6 +16,49 @@ export interface IListingRepository {
 export class ListingRepository implements IListingRepository {
   findAll(): Listing[] {
     return Array.from(listingsStore.values());
+  }
+
+  findFiltered({ search, category, size, sold, sortBy, sortOrder }: ListingQuery): Listing[] {
+    let results = this.findAll();
+
+    if (search) {
+      const term = search.toLowerCase();
+      results = results.filter(
+        (l) => l.title.toLowerCase().includes(term) || l.caption.toLowerCase().includes(term),
+      );
+    }
+
+    if (category) {
+      results = results.filter((l) => l.category === category);
+    }
+
+    if (size) {
+      results = results.filter((l) => l.size.toLowerCase() === size.toLowerCase());
+    }
+
+    if (sold !== undefined) {
+      const soldBool = sold === 'true';
+      results = results.filter((l) => l.sold === soldBool);
+    }
+
+    results.sort((a, b) => {
+      let aVal: number | string;
+      let bVal: number | string;
+
+      if (sortBy === 'likeCount') {
+        aVal = this.getLikeCount(a.id);
+        bVal = this.getLikeCount(b.id);
+      } else {
+        aVal = a[sortBy];
+        bVal = b[sortBy];
+      }
+
+      if (aVal < bVal) return sortOrder === 'asc' ? -1 : 1;
+      if (aVal > bVal) return sortOrder === 'asc' ? 1 : -1;
+      return 0;
+    });
+
+    return results;
   }
 
   findById(id: string): Listing | undefined {
