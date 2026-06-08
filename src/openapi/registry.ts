@@ -1,7 +1,8 @@
 import { OpenAPIRegistry } from '@asteasolutions/zod-to-openapi';
 import { ListingResponseSchema, PaginatedListingsSchema, CreateListingSchema, ListingQuerySchema } from '../schemas/listing.schema';
-import { CategoryResponseSchema, ErrorSchema } from '../schemas/category.schema';
+import { CategoryResponseSchema } from '../schemas/category.schema';
 import { PaginationSchema } from '../schemas/pagination.schema';
+import { ErrorSchema } from '../schemas/error.schema';
 
 export const registry = new OpenAPIRegistry();
 

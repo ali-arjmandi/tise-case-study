@@ -4,7 +4,7 @@ import { registry } from '../openapi/registry';
 import { ListingService } from '../services/listing.service';
 import { validate, requireUserId } from '../middleware/validate';
 import { ListingQuerySchema, CreateListingSchema, ListingResponseSchema, PaginatedListingsSchema } from '../schemas/listing.schema';
-import { ErrorSchema } from '../schemas/category.schema';
+import { ErrorSchema } from '../schemas/error.schema';
 
 export function registerListingRoutes(app: Application, service: ListingService): void {
   const idParam = z.object({ id: z.string() });
