@@ -1,5 +1,5 @@
 import { CategoryRepository } from '../repositories/category.repository';
-import { Category } from '../models/category';
+import { Category } from '../schemas/category.schema';
 
 export class CategoryService {
   constructor(private readonly categories: CategoryRepository) {}

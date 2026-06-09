@@ -53,5 +53,10 @@ export const PaginatedListingsSchema = z.object({
   limit: z.number().openapi({ example: 20 }),
 }).openapi('PaginatedListings');
 
+export const ListingSchema = ListingResponseSchema.omit({ likeCount: true, liked: true });
+
+export type Owner = z.infer<typeof OwnerSchema>;
+export type Listing = z.infer<typeof ListingSchema>;
+export type ListingResponse = z.infer<typeof ListingResponseSchema>;
 export type ListingQuery = z.infer<typeof ListingQuerySchema>;
 export type CreateListingInput = z.infer<typeof CreateListingSchema>;

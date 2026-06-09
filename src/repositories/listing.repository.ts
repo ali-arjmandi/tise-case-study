@@ -1,6 +1,5 @@
 import { listingsStore, likesStore } from '../db/store';
-import { Listing, ListingResponse } from '../models/listing';
-import { ListingQuery } from '../schemas/listing.schema';
+import { Listing, ListingResponse, ListingQuery } from '../schemas/listing.schema';
 
 export interface IListingRepository {
   findAll(): Listing[];

@@ -1,6 +1,6 @@
 import { listingsStore, likesStore, categoriesStore } from './store';
-import { Listing } from '../models/listing';
-import { Category } from '../models/category';
+import { Listing } from '../schemas/listing.schema';
+import { Category } from '../schemas/category.schema';
 
 const piatjelta = {
   id: '6135f8331cafb900977e4c35',

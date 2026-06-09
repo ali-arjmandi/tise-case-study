@@ -11,3 +11,10 @@ export const PaginationSchema = z.object({
 });
 
 export type PaginationQuery = z.infer<typeof PaginationSchema>;
+
+export type PaginatedResponse<T> = {
+  data: T[];
+  total: number;
+  offset: number;
+  limit: number;
+};

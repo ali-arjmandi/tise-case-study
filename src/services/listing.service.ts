@@ -1,7 +1,7 @@
 import { ListingRepository } from '../repositories/listing.repository';
 import { CategoryRepository } from '../repositories/category.repository';
-import { ListingResponse, PaginatedResponse, Listing } from '../models/listing';
-import { ListingQuery, CreateListingInput } from '../schemas/listing.schema';
+import { Listing, ListingResponse, ListingQuery, CreateListingInput } from '../schemas/listing.schema';
+import { PaginatedResponse } from '../schemas/pagination.schema';
 import { NotFoundError, ValidationError } from '../errors/app.error';
 
 export class ListingService {

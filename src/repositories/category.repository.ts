@@ -1,5 +1,5 @@
 import { categoriesStore } from '../db/store';
-import { Category } from '../models/category';
+import { Category } from '../schemas/category.schema';
 
 export interface ICategoryRepository {
   findAll(): Category[];

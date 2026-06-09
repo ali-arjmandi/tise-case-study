@@ -8,3 +8,5 @@ export const CategoryResponseSchema = z.object({
   title: z.string().openapi({ example: 'Dresses' }),
   icon: z.string().openapi({ example: 'https://tise-static.telenorcdn.net/category-images/wearables.clothes.dresses/icon.png' }),
 }).openapi('Category');
+
+export type Category = z.infer<typeof CategoryResponseSchema>;
